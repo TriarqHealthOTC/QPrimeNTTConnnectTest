@@ -22,6 +22,11 @@ public class HistoryDetailsController {
 	
 	private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(HistoryDetailsController.class);
 
+	@GetMapping("/")
+	public String hello() {
+		return "Hello....Welcome to QPrimeNTTConnectionTest";
+	}
+	
 	@GetMapping("/getHistoryDetails")
 	public ResponseEntity<HistoryDetails> getHistoryDetails() {
 		
