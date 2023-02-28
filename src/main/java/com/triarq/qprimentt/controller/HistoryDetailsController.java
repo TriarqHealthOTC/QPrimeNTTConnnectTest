@@ -1,5 +1,7 @@
 package com.triarq.qprimentt.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +27,15 @@ public class HistoryDetailsController {
 	@GetMapping("/")
 	public String hello() {
 		return "Hello....Welcome to QPrimeNTTConnectionTest";
+	}
+	
+	@GetMapping("/gethostnameandip")
+	public ResponseEntity<String> getHostname() throws UnknownHostException {
+		InetAddress id = InetAddress.getLocalHost();
+		String hostname = id.getHostName();
+		String ip = id.getHostAddress();
+
+		return new ResponseEntity<String>("hostname - " + hostname + " and ip - " + ip, HttpStatus.OK);
 	}
 	
 	@GetMapping("/getHistoryDetails")
