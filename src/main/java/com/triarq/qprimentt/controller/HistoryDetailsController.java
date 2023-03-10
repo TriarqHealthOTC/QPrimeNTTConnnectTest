@@ -1,5 +1,6 @@
 package com.triarq.qprimentt.controller;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -38,6 +39,19 @@ public class HistoryDetailsController {
 		return new ResponseEntity<String>("hostname - " + hostname + " and ip - " + ip, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getpingrequest")
+	public ResponseEntity<String> getPingRequest() throws IOException {
+		String ipAddress1 = "10.91.182.68";
+		String message1 = sendPingRequest(ipAddress1);
+		String ipAddress2 = "10.91.182.132";
+		String message2 = sendPingRequest(ipAddress2);
+		String ipAddress3 = "10.91.182.196";
+		String message3 = sendPingRequest(ipAddress3);
+		return new ResponseEntity<String>(message1+" "+message2+" "+message3, HttpStatus.OK);
+
+	}
+
+	
 	@GetMapping("/getHistoryDetails")
 	public ResponseEntity<HistoryDetails> getHistoryDetails() {
 		
@@ -53,5 +67,14 @@ public class HistoryDetailsController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		
+	}
+	
+	public static String sendPingRequest(String ipAddress) throws UnknownHostException, IOException {
+		InetAddress id = InetAddress.getByName(ipAddress);
+		
+		if (id.isReachable(5000))
+			return "Host is reachable "+id.getHostName()+"";
+		else
+			return "Sorry ! We can't reach to this host";
 	}
 }
